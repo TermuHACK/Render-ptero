@@ -18,24 +18,27 @@ RUN apk add --no-cache git && \
 # Этап 3: Финальный образ
 FROM alpine:latest
 
-# Установка зависимостей
-RUN apk add --no-cache \
-    bash \
-    sudo \
-    curl \
-    php81 \
-    php81-cli \
-    php81-curl \
-    php81-xml \
-    php81-mbstring \
-    php81-zip \
-    php81-session \
-    lighttpd \
-    nodejs \
-    npm \
-    qemu-user-static \
-    docker-cli git
+# Установка 
 
+RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
+    echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
+    apk add --no-cache \
+        bash \
+        sudo \
+        curl \
+        php81 \
+        php81-cli \
+        php81-curl \
+        php81-xml \
+        php81-mbstring \
+        php81-zip \
+        php81-session \
+        lighttpd \
+        nodejs \
+        npm \
+        qemu-user-static \
+        docker-cli \
+        git
 # Создание пользователя Dvdr00 с рут-доступом
 RUN adduser -D Dvdr00 && \
     echo "Dvdr00 ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
