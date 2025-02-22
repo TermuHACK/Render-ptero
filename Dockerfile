@@ -20,8 +20,7 @@ FROM alpine:latest
 
 # Установка 
 
-RUN
-    apk add --no-cache \
+RUN apk add --no-cache \
         bash \
         sudo \
         curl \
