@@ -20,8 +20,7 @@ FROM alpine:latest
 
 # Установка 
 
-RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
-    echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
+RUN
     apk add --no-cache \
         bash \
         sudo \
@@ -48,7 +47,10 @@ COPY --from=gotty-builder /gotty /usr/local/bin/gotty
 COPY --from=pterovm-builder /pterovm /home/Dvdr00/pterovm
 
 # Настройка Pterodactyl
-RUN git clone https://github.com/pterodactyl/panel.git /var/www/pterodactyl
+RUN wget -O panel.tar.gz https://github.com/pterodactyl/panel/archive/refs/heads/develop.tar.gz && \
+    mkdir -p /var/www/pterodactyl && \
+    tar -xzf panel.tar.gz --strip-components=1 -C /var/www/pterodactyl && \
+    rm panel.tar.gz
 RUN chown -R Dvdr00:Dvdr00 /var/www/pterodactyl && \
     chmod -R 755 /var/www/pterodactyl/storage /var/www/pterodactyl/bootstrap/cache
 
