@@ -34,7 +34,7 @@ RUN apk add --no-cache \
     nodejs \
     npm \
     qemu-user-static \
-    docker-cli
+    docker-cli git
 
 # Создание пользователя Dvdr00 с рут-доступом
 RUN adduser -D Dvdr00 && \
@@ -45,7 +45,7 @@ COPY --from=gotty-builder /gotty /usr/local/bin/gotty
 COPY --from=pterovm-builder /pterovm /home/Dvdr00/pterovm
 
 # Настройка Pterodactyl
-COPY panel /var/www/pterodactyl
+RUN git clone https://github.com/pterodactyl/panel.git /var/www/pterodactyl
 RUN chown -R Dvdr00:Dvdr00 /var/www/pterodactyl && \
     chmod -R 755 /var/www/pterodactyl/storage /var/www/pterodactyl/bootstrap/cache
 
