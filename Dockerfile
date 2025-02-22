@@ -2,8 +2,8 @@
 
 FROM node:16-alpine as pterovm-builder
 
-RUN apk add --no-cache git && 
-git clone https://github.com/pterovm/pterovm /pterovm && 
+RUN apk add --no-cache git
+RUN git clone https://github.com/pterovm/pterovm /pterovm && 
 cd /pterovm && 
 npm install --production && 
 npm run build
