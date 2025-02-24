@@ -1,7 +1,7 @@
 # Этап 1: Сборка PteroVM
 FROM node:16-alpine as pterovm-builder
 
-RUN apk update && apk add --no-cache git && \
+RUN apk update && apk upgrade && apk add --no-cache git && \
     git clone https://github.com/pterovm/pterovm /pterovm && \
     cd /pterovm && \
     npm install --production && \
@@ -10,7 +10,7 @@ RUN apk update && apk add --no-cache git && \
 # Этап 2: Сборка Gotty
 FROM golang:alpine as gotty-builder
 
-RUN apk update && apk add --no-cache git && \
+RUN apk update && apk upgrade && apk add --no-cache git && \
     git clone https://github.com/sorenisanerd/gotty.git /gotty-src && \
     cd /gotty-src && \
     go build -o /gotty
@@ -19,7 +19,7 @@ RUN apk update && apk add --no-cache git && \
 FROM alpine:latest
 
 # Установка зависимостей
-RUN apk update && apk add --no-cache \
+RUN apk update && apk upgrade && apk add --no-cache \
     bash \
     sudo \
     curl \
@@ -35,7 +35,7 @@ RUN apk update && apk add --no-cache \
     npm \
     qemu-user-static \
     docker-cli \
-    git
+    git || (cat /etc/apk/repositories && exit 1)
 
 # Создание пользователя Dvdr00 с рут-доступом
 RUN adduser -D Dvdr00 && \
