@@ -34,7 +34,6 @@ RUN apk update && apk upgrade && apk add --no-cache \
     nodejs \
     npm \
     qemu-user-static \
-    docker-cli \
     git || (cat /etc/apk/repositories && exit 1)
 
 # Создание пользователя Dvdr00 с рут-доступом
